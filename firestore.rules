@@ -1,0 +1,67 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // ===== Users =====
+    // Any authenticated user can read profiles
+    // Users can only create/update their own profile
+    match /users/{userId} {
+      allow read: if isAuth();
+      allow create: if isAuth() && isOwner(userId);
+      allow update: if isAuth() && isOwner(userId);
+      allow delete: if isAuth() && isOwner(userId);
+    }
+
+    // ===== User Drafts (auto-saved editor state) =====
+    match /userDrafts/{userId} {
+      allow read, write: if isAuth() && isOwner(userId);
+    }
+
+    // ===== User Projects (ebooks created by users) =====
+    match /userProjects/{projectId} {
+      allow read: if isAuth() && resource.data.userId == request.auth.uid;
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAuth() && resource.data.userId == request.auth.uid;
+    }
+
+    // ===== Templates (user-created templates) =====
+    // Published templates: anyone authenticated can read
+    // Only the creator can edit/delete their own template
+    match /templates/{templateId} {
+      allow read: if isAuth();
+      allow create: if isAuth() && request.resource.data.creatorId == request.auth.uid;
+      allow update, delete: if isAuth() && resource.data.creatorId == request.auth.uid;
+
+      // Usage logs
+      match /usage/{usageId} {
+        allow read: if isAuth();
+        allow create: if isAuth();
+      }
+
+      // Suggestions from other users
+      match /suggestions/{suggestionId} {
+        allow read: if isAuth();
+        allow create: if isAuth();
+        allow update: if isAuth() && (
+          resource.data.suggestedBy == request.auth.uid ||
+          get(/databases/$(database)/documents/templates/$(templateId)).data.creatorId == request.auth.uid
+        );
+      }
+    }
+
+    // ===== Revenue (read-only for creator) =====
+    match /revenue/{docId} {
+      allow read: if isAuth() && resource.data.creatorId == request.auth.uid;
+      allow write: if false;
+    }
+  }
+}
