@@ -19,10 +19,11 @@ export default function Home() {
     : templates.filter((t) => t.category === activeCategory)
 
   const handleSelectTemplate = (template: EBookTemplate) => {
-    if (!isAuthenticated) {
-      router.push('/login?redirect=/editor&template=' + template.id)
-      return
-    }
+    // Authentication bypass - allow template selection without login
+    // if (!isAuthenticated) {
+    //   router.push('/login?redirect=/editor&template=' + template.id)
+    //   return
+    // }
     sessionStorage.setItem('selected-template', JSON.stringify(template))
     router.push(`/editor?template=${template.id}`)
   }
