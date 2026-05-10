@@ -79,48 +79,55 @@
 #### 1. **User Can Create Template Using LaTeX Code**
 - **Status:** 🔲 TODO
 - **Expected Location:** Template Builder → LaTeX Input Option
-- **Details Needed:**
-  - Should users input raw LaTeX? 
-  - Should it auto-parse and generate template structure?
-  - How should it integrate with the visual template builder?
-  - Error handling for invalid LaTeX?
+- **FINALIZED REQUIREMENT:**
+  - Input method: Text area for raw LaTeX code
+  - System should parse LaTeX and extract structure into template
+  - Integration: Add as alternative to visual template builder
+  - Error handling: Validate LaTeX syntax, show helpful error messages
 
 #### 2. **Premium User - AI Drag & Drop Template Creation**
-- **Status:** 🔲 TODO
+- **Status:** 🔲 TODO (SCHEDULED FOR FUTURE)
 - **Expected Location:** Premium Feature / New AI Builder
-- **Details Needed:**
-  - AI Model to use? (OpenAI, Claude, etc.)
-  - Upload document format? (PDF, Word, Markdown)
-  - Drag-and-drop interface specifications?
-  - Template auto-generation from document?
-  - Premium tier detection and feature gating?
+- **FINALIZED REQUIREMENT:**
+  - Decision: Keep for future implementation (no free AI tools currently)
+  - For now: Create guide page showing how to convert documents to LaTeX
+  - Guide should help users generate LaTeX from Word/PDF/Markdown
+  - When AI is available: Integrate to auto-generate LaTeX from uploaded documents
+  - Users can then use LaTeX input method to create templates
 
 #### 3. **User Can Suggest Changes to Templates**
 - **Status:** 🔲 TODO
 - **Expected Location:** Template View → Suggest Changes Button
-- **Components to Create:**
-  - Suggestion Form Component
-  - Suggestion Management Page
-  - Notification System
-- **Details Needed:**
-  - What information in a suggestion? (title, description, changes, files?)
-  - Template creator approval workflow?
-  - Notifications for creators?
-  - Reward system for accepted suggestions?
+- **FINALIZED REQUIREMENTS:**
+  - Workflow: Creator inbox + inline comments (recommended approach)
+  - Suggestions appear in creator's dashboard inbox
+  - Creators can approve/reject with optional feedback
+  - Suggestion contains: title, description, proposed changes
+  - Notifications: Creator receives notification when suggestion submitted
+  - Non-creators cannot edit other's templates or publish them publicly
+  - Components to create:
+    - Suggestion Form Component
+    - Creator Suggestions Inbox Page
+    - Suggestion Detail/Review Page
 
 #### 4. **Revenue Sharing & Analytics**
 - **Status:** 🔲 PARTIAL
 - **Implemented:** Storage structure and basic tracking
-- **Missing:**
-  - Revenue calculation logic
-  - Payment processing (Stripe integration)
-  - Revenue dashboard/analytics
-  - Payout system
-- **Details Needed:**
-  - Payment interval? (monthly, quarterly)
-  - Minimum payout threshold?
-  - Commission structure?
-  - Tax compliance?
+- **FINALIZED REQUIREMENTS:**
+  - Revenue Model: Per-usage commission based on ad revenue
+  - Calculation: Commission depends on ad revenue generated from that template
+  - Creator Tier: Free users can create and publish templates (anyone can monetize)
+  - User Tiers: Free + Premium
+  - Creator Earnings Dashboard Should Show:
+    - Template usage count per template
+    - Total earnings per template
+    - Simplified view (not detailed analytics)
+  - Missing Implementation:
+    - Revenue calculation logic (based on ad revenue)
+    - Ad revenue integration
+    - Payment processing (Stripe integration)
+    - Payout system
+    - Revenue tracking database entries
 
 ---
 
@@ -168,11 +175,50 @@
 
 ---
 
-## Questions for User
+## Finalized Requirements Summary
 
-As we progress, I'll ask about:
-- LaTeX integration approach
-- AI model preference for premium feature
-- Suggestion workflow and approval process
-- Revenue/payment specifics
-- Premium tier definitions and pricing
+### ✅ User Onboarding
+- **Flow:** Simple email signup + user type selection (Creator vs Regular User)
+- **Enhancement:** Add beginner's guide for first-time users
+- **Components Needed:**
+  - Onboarding flow selector (Creator or Regular User)
+  - First-time user guide/tutorial
+  - Feature introduction walkthrough
+
+### ✅ Template Editing Behavior
+- **Auto-copy:** When editing any template, system auto-creates personal copy
+- **Original:** Template stays unchanged (read-only)
+- **Customization Scope:** Position only (no styling changes)
+- **User Experience:** User edits their copy, can still reference original
+
+### ✅ Template Library Display
+- **Browse Method:** Grid view with filters & search
+- **Metadata Shown:** Title, creator name, usage count, rating
+- **Filters:** Search by title/creator, filter by category
+- **Creator Info:** Show who created each template
+
+### ✅ Creator Features
+- **Can Create & Publish:** Anyone (free users) can create templates
+- **Revenue:** Earn commission on each use of their template
+- **Dashboard:** View usage count and earnings per template
+- **Suggestions:** Receive and manage change suggestions in inbox
+
+### ✅ Project Management
+- **Storage:** All projects in user dashboard
+- **Auto-save:** Drafts auto-save every 30 seconds
+- **Management:** View, edit, delete projects from dashboard
+
+---
+
+## Implementation Priority
+
+**Ready to start building. Which feature would you like to implement first?**
+
+1. **Onboarding System** - User signup + user type selection + beginner's guide
+2. **LaTeX Template Creation** - Text area input + LaTeX parser
+3. **Suggestion System** - Creator inbox + suggestion management
+4. **Revenue Dashboard** - Usage count + earnings display
+5. **Template Editing Auto-Copy** - Implement copy-on-edit behavior
+6. **Guide Page** - Document-to-LaTeX conversion guide (for future AI feature)
+
+**I recommend starting with: Onboarding System** (foundational for everything else)
