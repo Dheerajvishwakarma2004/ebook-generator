@@ -10,14 +10,21 @@
 ### ✅ IMPLEMENTED
 
 #### 1. **User Onboarding via Authentication**
-- **Status:** ✅ IMPLEMENTED (Currently Bypassed for Testing)
+- **Status:** ✅ FULLY IMPLEMENTED
 - **Components:** 
   - Firebase Auth Context (`lib/auth-context.tsx`) 
   - Auth Module (`lib/auth.ts`)
   - Sign Up Page (`app/signup/page.tsx`)
   - Sign In Page (`app/login/page.tsx`)
-  - Onboarding Page (`app/onboarding/page.tsx`)
+  - Onboarding Page (`app/onboarding/page.tsx`) - **ENHANCED**
 - **Details:** Full Firebase authentication setup with email/password and Google OAuth
+- **New Features in Onboarding:**
+  - Step 1: Beginner's Guide - Interactive walkthrough of platform features
+  - Step 2: User Role Selection - Choose between Creator or Regular User roles
+  - Step 3: Profile Setup - Bio and account type (for creators)
+  - User role stored in profile (`userRole: 'creator' | 'regular'`)
+  - Guide tracking (`hasSeenGuide` flag for future reference)
+  - Conditional UI based on selected role (account tier only for creators)
 - **Note:** Auth checks are currently bypassed - will be re-enabled before production
 
 #### 2. **Embedding New Project with User Account**
@@ -212,13 +219,14 @@
 
 ## Implementation Priority
 
-**Ready to start building. Which feature would you like to implement first?**
+**Status: Onboarding System ✅ COMPLETE**
 
-1. **Onboarding System** - User signup + user type selection + beginner's guide
-2. **LaTeX Template Creation** - Text area input + LaTeX parser
+**Next features to implement:**
+
+1. **LaTeX Template Creation** - Text area input + LaTeX parser
+2. **Template Editing Auto-Copy** - Implement copy-on-edit behavior
 3. **Suggestion System** - Creator inbox + suggestion management
 4. **Revenue Dashboard** - Usage count + earnings display
-5. **Template Editing Auto-Copy** - Implement copy-on-edit behavior
-6. **Guide Page** - Document-to-LaTeX conversion guide (for future AI feature)
+5. **Guide Page** - Document-to-LaTeX conversion guide (for future AI feature)
 
-**I recommend starting with: Onboarding System** (foundational for everything else)
+**I recommend next: LaTeX Template Creation** (enables creators to build templates programmatically)

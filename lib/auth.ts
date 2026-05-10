@@ -71,6 +71,8 @@ async function ensureUserProfile(
       createdAt: Date.now(),
       updatedAt: Date.now(),
       totalEarnings: 0,
+      userRole: 'regular',
+      hasSeenGuide: false,
     }
 
     await setDoc(userRef, userProfile)
@@ -88,6 +90,8 @@ async function ensureUserProfile(
       createdAt: Date.now(),
       updatedAt: Date.now(),
       totalEarnings: 0,
+      userRole: 'regular',
+      hasSeenGuide: false,
     }
   }
 }

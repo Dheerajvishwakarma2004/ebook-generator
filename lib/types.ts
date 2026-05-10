@@ -10,6 +10,8 @@ export interface User {
   bio?: string
   totalEarnings: number
   tier: 'creator' | 'standard' | 'premium' // tier for permissions
+  userRole: 'creator' | 'regular' // creator or regular user
+  hasSeenGuide?: boolean // track if user has seen onboarding guide
 }
 
 export interface Template {
